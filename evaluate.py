@@ -19,11 +19,11 @@ from utils.imagenet_utils import *
 from utils.evaluation_tools import *
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--data_dir", type=str, default='datasets/OpenImage/validation/data',
+parser.add_argument("--data_dir", type=str, default='images',
                     help="directory of dataset")
 parser.add_argument("--dataset", type=str, default='',
                     help="dataset name")
-parser.add_argument("--save_dir", type=str, default='eval_result/rn50-grad',
+parser.add_argument("--save_dir", type=str, default='results',
                     help="directory to save the result")
 parser.add_argument("--gpu_id", type=int, default=0,
                     help="GPU to work on")
@@ -37,7 +37,7 @@ parser.add_argument("--distill_num", type=int, default=0,
                     help="Number of iterative masking")
 parser.add_argument("--attack", type=str, default=None,
                     help="attack type: \"snow\", \"fog\"")
-parser.add_argument("--sentence_prefix", type=str, default='',
+parser.add_argument("--sentence_prefix", type=str, default='Give me something to eat',
                     help="input text type: \"sentence\", \"word\" (only for OpenImage)")
 parser.add_argument("--mask_threshold", type=float, default=0.2,
                     help="Threshold of the localization mask")

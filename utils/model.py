@@ -7,6 +7,7 @@ import timm
 
 def getCLIP(model_name, gpu_id):
     reshape_transform = None
+    #4번째 layer의 마지막 block
     if model_name == "RN50":
         model, preprocess = clip_modified.load(model_name, device = gpu_id, jit = False)
         target_layer = model.visual.layer4[-1]
@@ -15,18 +16,18 @@ def getCLIP(model_name, gpu_id):
         target_layer = model.visual.layer4[-1]
     elif model_name == "RN50x4":
         model, preprocess = clip_modified.load(model_name, device = gpu_id, jit = False)
-        target_layer = model.visual.layer4[-1]
+        target_layer = model.visual.layer4[-1] 
     elif model_name == "RN50x16":
         model, preprocess = clip_modified.load(model_name, device = gpu_id, jit = False)
         target_layer = model.visual.layer4[-1]
     elif model_name == "ViT-B/32":
         model, preprocess = clip_modified.load(model_name, device = gpu_id, jit = False)
         target_layer = model.visual.transformer.resblocks[-1].ln_1
-        reshape_transform = reshapeTransform7
+        reshape_transform = reshapeTransform7 #7
     elif model_name == "ViT-B/16":
         model, preprocess = clip_modified.load(model_name, device = gpu_id, jit = False)
         target_layer = model.visual.transformer.resblocks[-1].ln_1
-        reshape_transform = reshapeTransform14
+        reshape_transform = reshapeTransform14 #14
     elif model_name == "RN50-pretrained":
         model = resnet50(pretrained=True).to(gpu_id)
         target_layer = model.layer4[-1]
@@ -130,6 +131,6 @@ def getFineTune(model_name, model, out_feature):
         model.fc = torch.nn.Linear(in_features=2048, out_features = out_feature)
     # for para in model.parameters():
     #     para.require_grad = False
-    print(model)
+    # print(model)
 
     return model
